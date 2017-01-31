@@ -1,0 +1,64 @@
+[[1;32mINFO[0m   ] [Logger      ] Record log in /home/pi/.kivy/logs/kivy_17-01-27_15.txt
+[[1;32mINFO[0m   ] [Kivy        ] v1.9.2-dev0
+[[1;32mINFO[0m   ] [Python      ] v3.4.2 (default, Oct 19 2014, 13:31:11) 
+[GCC 4.9.1]
+[[1;32mINFO[0m   ] [Factory     ] 193 symbols loaded
+[[1;32mINFO[0m   ] [Image       ] Providers: img_tex, img_dds, img_sdl2, img_gif (img_pil, img_ffpyplayer ignored)
+[[1;32mINFO[0m   ] [Text        ] Provider: sdl2
+[[1;32mINFO[0m   ] [Window      ] Provider: egl_rpi
+[[1;32mINFO[0m   ] [GL          ] Using the "OpenGL ES 2" graphics system
+[[1;32mINFO[0m   ] [GL          ] Backend used <gl>
+[[1;32mINFO[0m   ] [GL          ] OpenGL version <b'OpenGL ES 2.0'>
+[[1;32mINFO[0m   ] [GL          ] OpenGL vendor <b'Broadcom'>
+[[1;32mINFO[0m   ] [GL          ] OpenGL renderer <b'VideoCore IV HW'>
+[[1;32mINFO[0m   ] [GL          ] OpenGL parsed version: 2, 0
+[[1;32mINFO[0m   ] [GL          ] Shading version <b'OpenGL ES GLSL ES 1.00'>
+[[1;32mINFO[0m   ] [GL          ] Texture max size <2048>
+[[1;32mINFO[0m   ] [GL          ] Texture max units <8>
+[[1;32mINFO[0m   ] [Shader      ] fragment shader: <b'Compiled'>
+[[1;32mINFO[0m   ] [Shader      ] vertex shader: <b'Compiled'>
+[[1;32mINFO[0m   ] [Window      ] virtual keyboard not allowed, single mode, not docked
+[[1;32mINFO[0m   ] [Clipboard   ] Provider: sdl2(['clipboard_dbusklipper', 'clipboard_gtk3', 'clipboard_xclip', 'clipboard_xsel'] ignored)
+[[1;31mCRITICAL[0m] [Cutbuffer   ] Unable to find any valuable Cutbuffer provider.
+xclip - FileNotFoundError: [Errno 2] No such file or directory: 'xclip'
+  File "/home/pi/Galil/kivy/kivy/core/__init__.py", line 59, in core_select_lib
+    fromlist=[modulename], level=0)
+  File "/home/pi/Galil/kivy/kivy/core/clipboard/clipboard_xclip.py", line 17, in <module>
+    p = subprocess.Popen(['xclip', '-version'], stdout=subprocess.PIPE)
+  File "/usr/lib/python3.4/subprocess.py", line 859, in __init__
+    restore_signals, start_new_session)
+  File "/usr/lib/python3.4/subprocess.py", line 1457, in _execute_child
+    raise child_exception_type(errno_num, err_msg)
+
+xsel - FileNotFoundError: [Errno 2] No such file or directory: 'xsel'
+  File "/home/pi/Galil/kivy/kivy/core/__init__.py", line 59, in core_select_lib
+    fromlist=[modulename], level=0)
+  File "/home/pi/Galil/kivy/kivy/core/clipboard/clipboard_xsel.py", line 16, in <module>
+    p = subprocess.Popen(['xsel'], stdout=subprocess.PIPE)
+  File "/usr/lib/python3.4/subprocess.py", line 859, in __init__
+    restore_signals, start_new_session)
+  File "/usr/lib/python3.4/subprocess.py", line 1457, in _execute_child
+    raise child_exception_type(errno_num, err_msg)
+
+[[1;32mINFO[0m   ] [GL          ] NPOT texture support is available
+[[1;32mINFO[0m   ] [OSC         ] using <multiprocessing> for socket
+[[1;32mINFO[0m   ] [ProbeSysfs  ] device match: /dev/input/event0
+[[1;32mINFO[0m   ] [HIDInput    ] Read event from </dev/input/event0>
+[[1;32mINFO[0m   ] [ProbeSysfs  ] device match: /dev/input/event1
+[[1;32mINFO[0m   ] [HIDInput    ] Read event from </dev/input/event1>
+[[1;32mINFO[0m   ] [Base        ] Start application main loop
+[[1;32mINFO[0m   ] [HIDMotionEvent] using <b'DELL Dell USB Entry Keyboard\x00                                                                                                                                                                                                                                   '>
+[[1;32mINFO[0m   ] [HIDMotionEvent] using <b'FT5406 memory based driver\x00                                                                                                                                                                                                                                     '>
+[[1;32mINFO[0m   ] [HIDMotionEvent] <b'FT5406 memory based driver\x00                                                                                                                                                                                                                                     '> range ABS X position is 0 - 800
+[[1;32mINFO[0m   ] [HIDMotionEvent] <b'FT5406 memory based driver\x00                                                                                                                                                                                                                                     '> range ABS Y position is 0 - 480
+[[1;32mINFO[0m   ] [HIDMotionEvent] <b'FT5406 memory based driver\x00                                                                                                                                                                                                                                     '> range position X is 0 - 800
+[[1;33mWARNING[0m] [Accordion   ] not enough space for displaying all children
+[[1;32mINFO[0m   ] [HIDMotionEvent] <b'FT5406 memory based driver\x00                                                                                                                                                                                                                                     '> range position Y is 0 - 480
+[[1;33mWARNING[0m] [Accordion   ] need 132px, got 84px
+[[1;33mWARNING[0m] [Accordion   ] layout aborted.
+[[1;33mWARNING[0m] [Accordion   ] not enough space for displaying all children
+[[1;33mWARNING[0m] [Accordion   ] need 132px, got 84px
+[[1;33mWARNING[0m] [Accordion   ] layout aborted.
+[[1;32mINFO[0m   ] [Base        ] Leaving application in progress...
+  (192.168.0.25)  	|  DMC30010Rev1.2h-cer
+  (192.168.0.60)  	|  RIO47100Rev1.0c

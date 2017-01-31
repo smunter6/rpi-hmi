@@ -1,0 +1,338 @@
+ShowcaseScreen:
+    name: 'Accordions'
+
+    fullscreen: True
+
+    Accordion:
+        orientation: 'horizontal'
+        AccordionItem:
+            id: aci1
+            title: 'Choose Controller'
+            collapse: False
+            BoxLayout:
+                id: controllerBox
+                orientation: 'vertical'
+                StackLayout:
+                    id: row1
+                    orientation: 'lr-tb'
+                    padding: [10,10,10,10]
+                    Label:
+                        height: 100
+                        size_hint: (.33, .15)
+                        text: '[b]Click to Select Controller[/b]'
+                        markup: True
+                        font_size: 14
+                    Label:
+                        height: 100
+                        size_hint: (.33, .15)
+                        text: '[b]Address[/b]'
+                        markup: True
+                        font_size: 14
+                    Label:
+                        height: 100
+                        size_hint: (.33, .15)
+                        text: '[b]Revision[/b]'
+                        markup: True
+                        font_size: 14
+
+                    #Button:
+                    #    height: 100
+                    #    size_hint: (.33, .15)
+                    #    text: 'DMC4080'
+                    #    on_press: app.selectController('DMC4080')
+                    #    background_color: [.6, 1.434, 2.151, 1]
+                    #Label:
+                    #    height: 100
+                    #    size_hint: (.33, .15)
+                    #    text: '192.168.1.55'
+                    #Label:
+                    #    height: 100
+                    #    size_hint: (.33, .15)
+                    #    text: 'DMC4080 Rev 1.2d-SER'
+                    
+        AccordionItem:
+            id: homeSetup
+            title: 'Homing and Setup'
+            BoxLayout:
+                id: homingBox
+                orientation: 'vertical'
+                StackLayout:
+                    id: row2
+                    orientation: 'lr-tb'
+                    padding: [10,10,10,10]
+#First Row
+                    Label:
+                        height: 100
+                        size_hint: (.25, .15)
+                        text: 'Motor Position (TP)'
+                        markup: True
+                        #font_size: 14
+                    Label:
+                        id: TPA
+                        height: 100
+                        size_hint: (.25, .15)
+                        text: '[b]182727[/b]'
+                        markup: True
+                        font_size: 22
+                    Label:
+                        height: 100
+                        size_hint: (.25, .15)
+                        text: 'Axis Stutus'
+                        markup: True
+                        #font_size: 14
+                    Label:
+                        id: _BGA
+                        height: 100
+                        size_hint: (.25, .15)
+                        text: '[b]Idle[/b]'
+                        markup: True
+                        font_size: 14
+#Second Row
+                    Label:
+                        height: 100
+                        size_hint: (.25, .15)
+                        text: 'Reverse Limit Switch'
+                        #on_press: app.selectController('DMC4080')
+                    CheckBox:
+                        id: _RLA
+                        size_hint: (.05, .15)
+                        group: 'rl'
+                        color: [3, 3, 3, 3]
+                        #disabled: True
+                    Label:
+                        height: 100
+                        size_hint: (.15, .15)
+                        text: 'Home Switch'
+                        #on_press: app.selectController('DMC4080')
+                    CheckBox:
+                        id: _HMA
+                        size_hint: (.05, .15)
+                        group: 'hm'
+                        color: [3, 3, 3, 3]
+                        #disabled: True
+                    Label:
+                        height: 100
+                        size_hint: (.25, .15)
+                        text: 'Forward Limit Switch'
+                        #on_press: app.selectController('DMC4080')
+                    CheckBox:
+                        id: _FLA
+                        size_hint: (.05, .15)
+                        group: 'fl'
+                        color: [3, 3, 3, 3]
+                        #disabled: True
+                    Label:
+                        height: 100
+                        size_hint: (.12, .15)
+                        text: 'Motor Off'
+                        #on_press: app.selectController('DMC4080')
+                    CheckBox:
+                        id: _MOA
+                        size_hint: (.05, .15)
+                        group: 'mo'
+                        color: [3, 3, 3, 3]
+                        #disabled: True
+#Spacer
+                    Label:
+                        height: 100
+                        size_hint: (1, .1)
+                        text: ''
+#Third Row
+                    Label:
+                        height: 100
+                        size_hint: (.05, .15)
+                        text: ''
+                    Button:
+                        height: 100
+                        size_hint: (.2, .15)
+                        text: 'Stop'
+                        on_press: app.dmcCommand('ST')
+                    Button:
+                        height: 100
+                        size_hint: (.2, .15)
+                        text: 'Motor Off'
+                        #disabled: True
+                        on_press: app.dmcCommand('MO')
+                    Button:
+                        height: 100
+                        size_hint: (.2, .15)
+                        text: 'Servo Here'
+                        #disabled: True
+                        on_press: app.dmcCommand('SH')
+                    Label:
+                        height: 100
+                        size_hint: (.01, .15)
+                        text: ''
+                    Button:
+                        height: 100
+                        size_hint: (.2, .15)
+                        text: 'Home Axis'
+                        on_press: app.dmcCommand('pa=0')
+                    Label:
+                        height: 100
+                        size_hint: (.05, .15)
+                        text: ''
+#Spacer
+                    Label:
+                        height: 100
+                        size_hint: (1, .1)
+                        text: ''
+#Forth Row
+                    Label:
+                        height: 100
+                        size_hint: (.2, .1)
+                        text: 'Axis Position'
+                    Slider:
+                        id: slider_TPA
+                        range: (-100, 2000000) #Needs application specific value
+                        orientation: 'horizontal'
+                        value: 0
+                        size_hint: (.75, .1)
+                        disabled: True
+                    Label:
+                        height: 100
+                        size_hint: (.05, .1)
+                        text: ''
+#Spacer
+                    Label:
+                        height: 100
+                        size_hint: (1, .1)
+                        text: ''
+#Fifth Row
+                    Label:
+                        height: 100
+                        size_hint: (.2, .1)
+                        text: 'Set Axis Position'
+                    Slider:
+                        id: slider_PAA
+                        range: (-100, 2000000) #Needs application specific value
+                        orientation: 'horizontal'
+                        value: 0
+                        size_hint: (.75, .1)
+                        on_touch_up: app.sliderMove()
+                    Label:
+                        height: 100
+                        size_hint: (.05, .1)
+                        text: ''
+        AccordionItem:
+            id: cutToLength
+            title: 'Cut to Length'
+            BoxLayout:
+                id: homingBox
+                orientation: 'vertical'
+                StackLayout:
+                    id: row33
+                    orientation: 'lr-tb'
+                    padding: [10,10,10,10]
+#First Row
+                    Label:
+                        height: 100
+                        size_hint: (.15, .15)
+                        text: '# of Cuts'
+                        markup: True
+                        #font_size: 14
+                    TextInput:
+                        id: numCuts
+                        size_hint: (.1, .1)
+                        text: '10'
+                    Button:
+                        height: 100
+                        size_hint: (.1, .1)
+                        text: '+1'
+                        on_press: app.addToCuts(1)
+                    Button:
+                        height: 100
+                        size_hint: (.1, .1)
+                        text: '-1'
+                        on_press: app.addToCuts(-1)
+                    Label:
+                        height: 100
+                        size_hint: (.3, .15)
+                        text: 'Enter Length (Counts)'
+                        markup: True
+                    TextInput:
+                        id: cutLen
+                        size_hint: (.15, .1)
+                        text: '1000000'
+
+                    Label:
+                        height: 100
+                        size_hint: (.9, .1)
+                        text: ''
+#Second Row
+                    Button:
+                        height: 100
+                        size_hint: (.3, .15)
+                        text: 'Begin Cut-To-Length'
+                        on_press: app.startCutToLength()
+                    Label:
+                        height: 100
+                        size_hint: (.1, .1)
+                        text: ''
+                    Button:
+                        height: 100
+                        size_hint: (.3, .15)
+                        text: 'Cancel Operation'
+                        #disabled: True
+                        on_press: app.stopCutToLength()
+                    Label:
+                        height: 100
+                        size_hint: (.2, .1)
+                        text: ''
+
+                    Label:
+                        height: 100
+                        size_hint: (.9, .1)
+                        text: ''
+
+#Third Row
+                    Label:
+                        height: 100
+                        size_hint: (.2, .15)
+                        text: 'Current Cut'
+                        markup: True
+                        #font_size: 14
+                    Label:
+                        id:currentCut
+                        height: 100
+                        size_hint: (.1, .15)
+                        text: '[b]1[/b]'
+                        markup: True
+                        font_size: 14
+                    Label:
+                        height: 100
+                        size_hint: (.1, .15)
+                        text: 'Status: '
+                    Label:
+                        id: currentStatus
+                        height: 100
+                        size_hint: (.5, .15)
+                        text: '[b]Loading Material[/b]'
+                        markup: True
+                        font_size: 14
+#Spacer
+                    Label:
+                        height: 100
+                        size_hint: (.95, .1)
+                        text: ''
+#Forth Row
+                    Label:
+                        height: 100
+                        size_hint: (.2, .15)
+                        text: 'Axis Position'
+                        markup: True
+                        #font_size: 14
+                    Slider:
+                        id: cutPositionSlider
+                        range: (-100, 2000000) #Needs application specific value
+                        orientation: 'horizontal'
+                        value: 12340
+                        size_hint: (.6, .1)
+                        disabled: True
+                    Label:
+                        id: cutPosition
+                        height: 100
+                        size_hint: (.2, .15)
+                        text: '[b]12340[/b]'
+                        markup: True
+                        font_size: 14

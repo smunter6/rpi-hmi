@@ -54,23 +54,6 @@ class ShowcaseApp(App):
         self.controllerConnected = 1
         self.firstScreen.ids.homeSetup.collapse = False#Open the Homing and Setup screen
         #Download slider program
-        self.dmc.GProgramDownload("""
-#slider
-MO;         'Motor Off
-'MT-2.5;    'Setup axis as stepper motor
-SHA;        'Servo the motor
-AC512000;   'Set Acceleration Rate
-DC512000;   'Set Deceleration Rate
-SPA=180000; 'Set Motor Speed
-pa=_RPA;    'Record current position
-PTA=1;      'Setup Position Tracking Mode
-#loop;      'Start of loop
-PAA=pa;     'Update absolute position based on variable sent from HMI
-WT100;      'Setup 100ms scan loop
-JP#loop;    'Jump to loop
-EN
-""")
-        self.dmcCommand("XQ#slider")#Run the downloaded program
 
     #This function is executed when the slider is released.
     #It sends its position to the controller as a variable.
@@ -79,7 +62,7 @@ EN
     #This Position Tracking mode allows a new position to be chosen before the previous one finishes.
     def sliderMove(self):
         if(self.controllerConnected == 1):
-            self.dmcCommand("pa="+str(int(self.firstScreen.ids['slider_PAA'].value)))
+            self.dmcCommand("PAA="+str(int(self.firstScreen.ids['slider_PAA'].value)))
 
     #This function will perform error trapping on any GCommand calls.
     #It is intended to capture any gclib errors and report the message to the title bar
@@ -225,7 +208,27 @@ EN""")
     #TODO: Send the ST command to the controller to stop the application
     def stopCutToLength(self):
         print ('stop')
+        self.dmcCommand("ST")
         self.firstScreen.ids['currentStatus'].text = "Stopped"
+
+    def startHomingandSetup(self):
+        self.dmc.GProgramDownload("""
+#slider
+MO;         'Motor Off
+'MT-2.5;    'Setup axis as stepper motor
+SHA;        'Servo the motor
+AC512000;   'Set Acceleration Rate
+DC512000;   'Set Deceleration Rate
+SPA=180000; 'Set Motor Speed
+pa=_RPA;    'Record current position
+PTA=1;      'Setup Position Tracking Mode
+''#loop;      'Start of loop
+'PAA=pa;     'Update absolute position based on variable sent from HMI
+'WT100;      'Setup 100ms scan loop
+'JP#loop;    'Jump to loop
+EN
+""")
+        self.dmcCommand("XQ#slider")#Run the downloaded program
 
     #This is a simple function to increment or decrement the number of cuts
     #function is called from the accordian.kv UI file

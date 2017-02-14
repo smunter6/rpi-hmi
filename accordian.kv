@@ -147,6 +147,11 @@ ShowcaseScreen:
                     Button:
                         height: 100
                         size_hint: (.2, .15)
+                        text: 'Start Tracking'
+                        on_press: app.startHomingandSetup()
+                    Button:
+                        height: 100
+                        size_hint: (.2, .15)
                         text: 'Stop'
                         on_press: app.dmcCommand('ST')
                     Button:
@@ -169,7 +174,7 @@ ShowcaseScreen:
                         height: 100
                         size_hint: (.2, .15)
                         text: 'Home Axis'
-                        on_press: app.dmcCommand('DP=0')
+                        on_press: app.dmcCommand('DP 0')
                     Label:
                         height: 100
                         size_hint: (.05, .15)

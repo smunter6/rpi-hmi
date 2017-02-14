@@ -92,7 +92,7 @@ EN
             print (tc1)
             self.dmc.GClose(self.root.ids.avTitle.title)
             self.root.ids.avTitle.title = tc1#Update title with error message
-            self.controllerConnected = 0
+            self.root.ids.sm.switch_to(self.firstScreen)
 
     #This function will update the homing screen UI elements.
     #The function will ask for the Reported Position (RP) and Tell the state of the Switches (TS)
@@ -237,10 +237,15 @@ EN""")
     #It will call the functions to update the selected screen
     def _update_clock(self, dt):
         self.time = time()
-        if(self.controllerConnected == 1):
+        if(self.firstScreen.ids.homeSetup.collapse == False):
             self.updateHomingScreen()
-        elif(self.controllerConnected == 2):
+        if(self.firstScreen.ids.cutToLength.collapse == False):
             self.updateCutScreen()
+
+        #if(self.controllerConnected == 1):
+        #    self.updateHomingScreen()
+        #elif(self.controllerConnected == 2):
+        #    self.updateCutScreen()
 
 
 if __name__ == '__main__':

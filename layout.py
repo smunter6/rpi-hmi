@@ -60,7 +60,7 @@ MO;         'Motor Off
 SHA;        'Servo the motor
 AC512000;   'Set Acceleration Rate
 DC512000;   'Set Deceleration Rate
-SPA=180000; 'Set Motor Speed
+SPA=360000; 'Set Motor Speed
 EN
 """)
         self.dmcCommand("XQ#start")#Run the downloaded program
@@ -212,7 +212,7 @@ EN""")
         self.dmcCommand('len='+self.firstScreen.ids['cutLen'].text)#Set the length of cut variable on the controller
         #rc = self.dmc.GCommand("XQ#cut")
         self.dmcCommand("XQ#cut")#Run the downloaded program
-        self.controllerConnected = 2#update the variable to tell the UI which screen to update
+        self.controllerConnected = 2#update the variable to tell HMI which program is running on the controller
         self.firstScreen.ids['currentStatus'].text = "Running..."#Update the status text
 
     #This function is to stop the cut-to-length application

@@ -73,9 +73,9 @@ class ShowcaseApp(App):
             tc1 = ""
             #tc1 = self.dmc.GCommand('TC1')
             print (e , ': ' + tc1)
-            self.dmc.GClose(self)
+            #self.dmc.GClose()
             self.root.ids.avTitle.title = tc1#Update title with error message
-            self.root.ids.sm.switch_to(self.firstScreen)
+            #self.root.ids.sm.switch_to(self.firstScreen)
 
     #This function will update the homing screen UI elements.
     #The function will ask for the Reported Position (RP) and Tell the state of the Switches (TS)

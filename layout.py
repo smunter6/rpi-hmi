@@ -48,11 +48,11 @@ class ShowcaseApp(App):
 
     #This function is called when a controller is selected on the first page
     def selectController(self, value, *args):
-        self.firstScreen.ids.homeSetup.collapse = False#Open the Homing and Setup screen
         self.root.ids.avTitle.title = value + ' -d'#Update the title to show the connected controller
         print(value +' -d')
         self.dmc.GOpen(value.strip('()') +' -d')#Call GOpen with the IP Address selected
         self.controllerConnected = 1
+        self.firstScreen.ids.homeSetup.collapse = False#Open the Homing and Setup screen
         #Download slider program
         self.dmc.GProgramDownload("""
 #slider
@@ -86,7 +86,7 @@ EN
     def dmcCommand(self, cmd):
         try:
             rc = self.dmc.GCommand(cmd)#Send command into the GCommand gclib API
-        except Exception as e:
+        except GclibError as e:
             print (e)
             tc1 = self.dmc.GCommand('TC1')
             print (tc1)

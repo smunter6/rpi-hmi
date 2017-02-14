@@ -45,7 +45,7 @@ class ShowcaseApp(App):
         self.root.ids.avTitle.title = self.current_title +' - ' + self.dmc.GVersion()#Update the title
         self.controllers=self.dmc.GAddresses()#populate the controllers list
         self.populateControllers()#Display available controllers to the UI
-    
+
     #This function is called when a controller is selected on the first page
     def selectController(self, value, *args):
         self.firstScreen.ids.homeSetup.collapse = False#Open the Homing and Setup screen
@@ -72,10 +72,10 @@ EN
 """)
         self.dmcCommand("XQ#slider")#Run the downloaded program
 
-    #This function is executed when the slider is released. 
-    #It sends its position to the controller as a variable. 
-    #The program running on the controller will read that variable and perform the 
-    #Position Absolute move in Position Tracking mode. 
+    #This function is executed when the slider is released.
+    #It sends its position to the controller as a variable.
+    #The program running on the controller will read that variable and perform the
+    #Position Absolute move in Position Tracking mode.
     #This Position Tracking mode allows a new position to be chosen before the previous one finishes.
     def sliderMove(self):
         if(self.controllerConnected == 1):
@@ -90,13 +90,15 @@ EN
             print (e)
             tc1 = self.dmc.GCommand('TC1')
             print (tc1)
+            self.dmc.GClose(self.root.ids.avTitle.title)
             self.root.ids.avTitle.title = tc1#Update title with error message
+            self.controllerConnected = 0
 
     #This function will update the homing screen UI elements.
     #The function will ask for the Reported Position (RP) and Tell the state of the Switches (TS)
     #From this data the LED elements, text elements and sliders can be updated.
     def updateHomingScreen(self):
-        data = self.dmc.GCommand('MG{Z10.0} _RPA, _TSA')#Get Position and Switch info
+        data = self.dmcCommand('MG{Z10.0} _RPA, _TSA')#Get Position and Switch info
         self.controllerData = data
         self.firstScreen.ids['TPA'].text = data.split()[0]#Update the Position Text Element
         self.firstScreen.ids['slider_TPA'].value = int(data.split()[0])#Update the Slider element
@@ -120,7 +122,7 @@ EN
     #This function will update the Cut-to-length screen UI elements.
     #The function will ask for the Reported Position (RP) and a variable called i
     def updateCutScreen(self):
-        data = self.dmc.GCommand('MG{Z10.0} _RPA, i')#Get Position and variable info
+        data = self.dmcCommand('MG{Z10.0} _RPA, i')#Get Position and variable info
         self.firstScreen.ids['cutPosition'].text = data.split()[0]#Update the Position Text Element
         self.firstScreen.ids['cutPositionSlider'].value = int(data.split()[0])#Update the Slider element
         self.firstScreen.ids['currentCut'].text = data.split()[1]#Update the counter element
@@ -131,17 +133,17 @@ EN
     #This function will populate the UI is available controllers on the network
     def populateControllers(self, *args):
         self.firstScreen.ids['row1'].clear_widgets()
-        self.firstScreen.ids['row1'].add_widget(Label(height= 100, 
+        self.firstScreen.ids['row1'].add_widget(Label(height= 100,
                                                       size_hint=(.33, .15),
                                                       text='[b]Click to Select Controller[/b]',
                                                       markup= True,
                                                       font_size= 14))
-        self.firstScreen.ids['row1'].add_widget(Label(height= 100, 
+        self.firstScreen.ids['row1'].add_widget(Label(height= 100,
                                                       size_hint=(.33, .15),
                                                       text='[b]Address[/b]',
                                                       markup= True,
                                                       font_size= 14))
-        self.firstScreen.ids['row1'].add_widget(Label(height= 100, 
+        self.firstScreen.ids['row1'].add_widget(Label(height= 100,
                                                       size_hint=(.33, .15),
                                                       text='[b]Revision[/b]',
                                                       markup= True,
@@ -150,7 +152,7 @@ EN
         if(len(self.controllers)):
             for key, value in self.controllers.items():
                 print (" ", key, " \t| ", value)
-                btn1 = Button(  height= 100, 
+                btn1 = Button(  height= 100,
                                   size_hint=(.33, .15),
                                   text=value.split('Rev')[0],
                                   background_color= [.6, 1.434, 2.151, 1],
@@ -158,23 +160,23 @@ EN
                 btn1.bind(on_press=partial(self.selectController, key))#If controller is selected then pass info to the selectController function
 
                 self.firstScreen.ids['row1'].add_widget(btn1)
-                self.firstScreen.ids['row1'].add_widget(Label(height= 100, 
+                self.firstScreen.ids['row1'].add_widget(Label(height= 100,
                                                       size_hint=(.33, .15),
                                                       text=key))
                 try:
-                    self.firstScreen.ids['row1'].add_widget(Label(height= 100, 
+                    self.firstScreen.ids['row1'].add_widget(Label(height= 100,
                                                       size_hint=(.33, .15),
                                                       text='Rev'+value.split('Rev')[1]))
                 except:
-                    self.firstScreen.ids['row1'].add_widget(Label(height= 100, 
+                    self.firstScreen.ids['row1'].add_widget(Label(height= 100,
                                                       size_hint=(.33, .15),
                                                       text='Special'))
         else:
-            self.firstScreen.ids['row1'].add_widget(Label(height= 100, 
+            self.firstScreen.ids['row1'].add_widget(Label(height= 100,
                                                       size_hint=(.33, .15),
                                                       text='No Contollers Found',
                                                       font_size= 14))
-            btn2 = Button(  height= 100, 
+            btn2 = Button(  height= 100,
                             size_hint=(.33, .15),
                             text='Refresh',
                             background_color= [.6, 1.434, 2.151, 1],
@@ -230,16 +232,16 @@ EN""")
     def addToCuts(self, count):
         value = int(self.firstScreen.ids['numCuts'].text) + count
         self.firstScreen.ids['numCuts'].text = str(value)
-        
+
     #This function is called at 10Hz.
-    #It will call the functions to update the selected screen 
+    #It will call the functions to update the selected screen
     def _update_clock(self, dt):
         self.time = time()
         if(self.controllerConnected == 1):
             self.updateHomingScreen()
         elif(self.controllerConnected == 2):
             self.updateCutScreen()
-            
+
 
 if __name__ == '__main__':
     ShowcaseApp().run()

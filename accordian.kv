@@ -9,6 +9,7 @@ ShowcaseScreen:
             id: aci1
             title: 'Choose Controller'
             collapse: False
+            on_press: controllerConnected = 0
             BoxLayout:
                 id: controllerBox
                 orientation: 'vertical'
@@ -49,10 +50,11 @@ ShowcaseScreen:
                     #    height: 100
                     #    size_hint: (.33, .15)
                     #    text: 'DMC4080 Rev 1.2d-SER'
-                    
+
         AccordionItem:
             id: homeSetup
             title: 'Homing and Setup'
+            on_press: controllerConnected = 1
             BoxLayout:
                 id: homingBox
                 orientation: 'vertical'
@@ -167,7 +169,7 @@ ShowcaseScreen:
                         height: 100
                         size_hint: (.2, .15)
                         text: 'Home Axis'
-                        on_press: app.dmcCommand('pa=0')
+                        on_press: app.dmcCommand('pa 0')
                     Label:
                         height: 100
                         size_hint: (.05, .15)
@@ -217,6 +219,7 @@ ShowcaseScreen:
         AccordionItem:
             id: cutToLength
             title: 'Cut to Length'
+            on_press: controllerConnected = 2
             BoxLayout:
                 id: homingBox
                 orientation: 'vertical'

@@ -85,8 +85,8 @@ EN
     #It is intended to capture any gclib errors and report the message to the title bar
     def dmcCommand(self, cmd):
         try:
-            rc = self.dmc.GCommand(cmd)#Send command into the GCommand gclib API
-        except GclibError as e:
+            return self.dmc.GCommand(cmd)#Send command into the GCommand gclib API
+        except gclib.GclibError as e:
             print (e)
             tc1 = self.dmc.GCommand('TC1')
             print (tc1)

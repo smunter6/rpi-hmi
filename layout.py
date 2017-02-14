@@ -39,7 +39,7 @@ class ShowcaseApp(App):
     #The build function is automatically called when the class is initialized.
     #This function will setup the UI update frequency and setup the first screen
     def build(self):
-        Clock.schedule_interval(self._update_clock, 1 / 10.)#Setup the UI to run clock update 10 times a second
+        Clock.schedule_interval(self._update_clock, 1 / 30.)#Setup the UI to run clock update 30 times a second
         self.firstScreen = Builder.load_file("accordian.kv")#Setup the kv UI file at startup
         self.root.ids.sm.switch_to(self.firstScreen)#Tell the UI to load the UI file
         self.root.ids.avTitle.title = self.current_title +' - ' + self.dmc.GVersion()#Update the title
@@ -52,7 +52,18 @@ class ShowcaseApp(App):
         print(value +' -d')
         self.dmc.GOpen(value.strip('()') +' -d')#Call GOpen with the IP Address selected
         self.firstScreen.ids.homeSetup.collapse = False#Open the Homing and Setup screen
-        #Download slider program
+        #Download initial settings
+        self.dmc.GProgramDownload("""
+#start
+MO;         'Motor Off
+'MT-2.5;    'Setup axis as stepper motor
+SHA;        'Servo the motor
+AC512000;   'Set Acceleration Rate
+DC512000;   'Set Deceleration Rate
+SPA=180000; 'Set Motor Speed
+EN
+""")
+        self.dmcCommand("XQ#start")#Run the downloaded program
 
     #This function is executed when the slider is released.
     #It sends its position to the controller as a variable.
@@ -212,23 +223,7 @@ EN""")
         self.firstScreen.ids['currentStatus'].text = "Stopped"
 
     def startHomingandSetup(self):
-        self.dmc.GProgramDownload("""
-#slider
-MO;         'Motor Off
-'MT-2.5;    'Setup axis as stepper motor
-SHA;        'Servo the motor
-AC512000;   'Set Acceleration Rate
-DC512000;   'Set Deceleration Rate
-SPA=180000; 'Set Motor Speed
-pa=_RPA;    'Record current position
-PTA=1;      'Setup Position Tracking Mode
-''#loop;      'Start of loop
-'PAA=pa;     'Update absolute position based on variable sent from HMI
-'WT100;      'Setup 100ms scan loop
-'JP#loop;    'Jump to loop
-EN
-""")
-        self.dmcCommand("XQ#slider")#Run the downloaded program
+        self.dmcCommand('PTA=1')
         self.controllerConnected = 1
 
     #This is a simple function to increment or decrement the number of cuts
@@ -237,7 +232,7 @@ EN
         value = int(self.firstScreen.ids['numCuts'].text) + count
         self.firstScreen.ids['numCuts'].text = str(value)
 
-    #This function is called at 10Hz.
+    #This function is called at 30Hz.
     #It will call the functions to update the selected screen
     def _update_clock(self, dt):
         self.time = time()

@@ -72,7 +72,7 @@ class ShowcaseApp(App):
             print (e)
             tc1 = ""
             #tc1 = self.dmc.GCommand('TC1')
-            print (e , ': ' + tc1)
+            print (e , ': ' + cmd)
             #self.dmc.GClose()
             self.root.ids.avTitle.title = e#Update title with error message
             #self.root.ids.sm.switch_to(self.firstScreen)

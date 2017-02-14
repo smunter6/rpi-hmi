@@ -72,7 +72,7 @@ class ShowcaseApp(App):
         except gclib.GclibError as e:
             print (e)
             #tc1 = self.dmc.GCommand('TC1')
-            print (e + ': ' + tc1)
+            print (e , ': ' + tc1)
             self.dmc.GClose(self)
             self.root.ids.avTitle.title = tc1#Update title with error message
             self.root.ids.sm.switch_to(self.firstScreen)

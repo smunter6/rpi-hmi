@@ -60,7 +60,7 @@ MO;         'Motor Off
 SHA;        'Servo the motor
 AC512000;   'Set Acceleration Rate
 DC512000;   'Set Deceleration Rate
-SPA=360000; 'Set Motor Speed
+SPA=180000; 'Set Motor Speed
 EN
 """)
         self.dmcCommand("XQ#start")#Run the downloaded program
@@ -87,42 +87,49 @@ EN
             #self.dmc.GClose()
             self.root.ids.avTitle.title = str(e) #Update title with error message
             #self.root.ids.sm.switch_to(self.firstScreen)
+            raise   #allow the caller to handle the exception
 
     #This function will update the homing screen UI elements.
     #The function will ask for the Reported Position (RP) and Tell the state of the Switches (TS)
     #From this data the LED elements, text elements and sliders can be updated.
     def updateHomingScreen(self):
-        data = self.dmcCommand('MG{Z10.0} _RPA, _TSA')#Get Position and Switch info
-        self.controllerData = data
-        self.firstScreen.ids['TPA'].text = data.split()[0]#Update the Position Text Element
-        self.firstScreen.ids['slider_TPA'].value = int(data.split()[0])#Update the Slider element
-        if(int(data.split()[1])&128):#extract bit index 7 in _TSA that tells if the axis is moving
-            self.firstScreen.ids['_BGA'].text = 'Axis Moving'
-        else:
-            self.firstScreen.ids['_BGA'].text = 'Idle'
-        if(int(data.split()[1])&4):#extract bit index 2 in _TSA for the Reverse Limit Switch status
-            self.firstScreen.ids['_RLA'].active = False
-        else:
-            self.firstScreen.ids['_RLA'].active = True
-        if(int(data.split()[1])&8):#extract bit index 3 in _TSA for the Forward Limit Switch status
-            self.firstScreen.ids['_FLA'].active = False
-        else:
-            self.firstScreen.ids['_FLA'].active = True
-        if(int(data.split()[1])&32):#extract bit index 5 in _TSA for the Motor Off status
-            self.firstScreen.ids['_MOA'].active = True
-        else:
-            self.firstScreen.ids['_MOA'].active = False
+        try:
+            data = self.dmcCommand('MG{Z10.0} _RPA, _TSA')#Get Position and Switch info
+            self.controllerData = data
+            self.firstScreen.ids['TPA'].text = data.split()[0]#Update the Position Text Element
+            self.firstScreen.ids['slider_TPA'].value = int(data.split()[0])#Update the Slider element
+            if(int(data.split()[1])&128):#extract bit index 7 in _TSA that tells if the axis is moving
+                self.firstScreen.ids['_BGA'].text = 'Axis Moving'
+            else:
+                self.firstScreen.ids['_BGA'].text = 'Idle'
+            if(int(data.split()[1])&4):#extract bit index 2 in _TSA for the Reverse Limit Switch status
+                self.firstScreen.ids['_RLA'].active = False
+            else:
+                self.firstScreen.ids['_RLA'].active = True
+            if(int(data.split()[1])&8):#extract bit index 3 in _TSA for the Forward Limit Switch status
+                self.firstScreen.ids['_FLA'].active = False
+            else:
+                self.firstScreen.ids['_FLA'].active = True
+            if(int(data.split()[1])&32):#extract bit index 5 in _TSA for the Motor Off status
+                self.firstScreen.ids['_MOA'].active = True
+            else:
+                self.firstScreen.ids['_MOA'].active = False
+        except gclib.GclibError as e:
+            #do nothing
 
     #This function will update the Cut-to-length screen UI elements.
     #The function will ask for the Reported Position (RP) and a variable called i
     def updateCutScreen(self):
-        data = self.dmcCommand('MG{Z10.0} _RPA, i')#Get Position and variable info
-        self.firstScreen.ids['cutPosition'].text = data.split()[0]#Update the Position Text Element
-        self.firstScreen.ids['cutPositionSlider'].value = int(data.split()[0])#Update the Slider element
-        self.firstScreen.ids['currentCut'].text = data.split()[1]#Update the counter element
-        if(int(data.split()[1])>= int(self.firstScreen.ids['numCuts'].text)):
-            self.controllerConnected = 2
-            self.firstScreen.ids['currentStatus'].text = "Completed."
+        try:
+            data = self.dmcCommand('MG{Z10.0} _RPA, i')#Get Position and variable info
+            self.firstScreen.ids['cutPosition'].text = data.split()[0]#Update the Position Text Element
+            self.firstScreen.ids['cutPositionSlider'].value = int(data.split()[0])#Update the Slider element
+            self.firstScreen.ids['currentCut'].text = data.split()[1]#Update the counter element
+            if(int(data.split()[1])>= int(self.firstScreen.ids['numCuts'].text)):
+                self.controllerConnected = 2
+                self.firstScreen.ids['currentStatus'].text = "Completed."
+        except gclib.GclibError as e:
+            #do nothing
 
     #This function will populate the UI is available controllers on the network
     def populateControllers(self, *args):

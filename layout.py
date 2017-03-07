@@ -174,7 +174,6 @@ EN
             for key, value in self.controllers.items():
                 print(" ", key, " \t| ", value)
                 btn1 = Button(height=100,
-                              size=self.size,
                               text=value.split('Rev')[0],
                               background_color=[.6, 1.434, 2.151, 1],)
                 # If controller is selected then pass info to the
@@ -183,7 +182,7 @@ EN
 
                 box1 = BoxLayout(id=key, orientation='horizontal',
                                 padding=[10, 10, 10, 10], height=100)
-                box1.add_widget(btn1)
+                box1.add_widget(btn1(size=self.size))
                 box1.add_widget(Label(text=key))
                 try:
                     box1.add_widget(Label(text='Rev' + value.split('Rev')[1]))

@@ -13,25 +13,20 @@ ShowcaseScreen:
             BoxLayout:
                 id: controllerBox
                 orientation: 'vertical'
-                StackLayout:
+                BoxLayout:
                     id: row1
-                    orientation: 'lr-tb'
+                    orientation: 'horizontal'
                     padding: [10,10,10,10]
+                    height: 100
                     Label:
-                        height: 100
-                        size_hint: (.33, .15)
                         text: '[b]Click to Select Controller[/b]'
                         markup: True
                         font_size: 14
                     Label:
-                        height: 100
-                        size_hint: (.33, .15)
                         text: '[b]Address[/b]'
                         markup: True
                         font_size: 14
                     Label:
-                        height: 100
-                        size_hint: (.33, .15)
                         text: '[b]Revision[/b]'
                         markup: True
                         font_size: 14

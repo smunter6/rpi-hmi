@@ -135,22 +135,24 @@ EN
 
 	#This function will populate the UI is available controllers on the network
 	def populateControllers(self, *args):
-		self.firstScreen.ids['row1'].clear_widgets()
-		self.firstScreen.ids['row1'].add_widget(Label(height= 100,
-														size_hint=(.33, .15),
-														text='[b]Click to Select Controller[/b]',
-														markup= True,
-														font_size= 14))
-		self.firstScreen.ids['row1'].add_widget(Label(height= 100,
-														size_hint=(.33, .15),
-														text='[b]Address[/b]',
-														markup= True,
-														font_size= 14))
-		self.firstScreen.ids['row1'].add_widget(Label(height= 100,
-														size_hint=(.33, .15),
-														text='[b]Revision[/b]',
-														markup= True,
-														font_size= 14))
+
+#		self.firstScreen.ids['row1'].clear_widgets()
+#		self.firstScreen.ids['row1'].add_widget(Label(height= 100,
+#														size_hint=(.33, .15),
+#														text='[b]Click to Select Controller[/b]',
+#														markup= True,
+#														font_size= 14))
+#		self.firstScreen.ids['row1'].add_widget(Label(height= 100,
+#														size_hint=(.33, .15),
+#														text='[b]Address[/b]',
+#														markup= True,
+#														font_size= 14))
+#		self.firstScreen.ids['row1'].add_widget(Label(height= 100,
+#														size_hint=(.33, .15),
+#														text='[b]Revision[/b]',
+#														markup= True,
+#														font_size= 14))
+
 		self.controllers=self.dmc.GAddresses()#the gclib API call will return all controllers with IP addresses
 		if(len(self.controllers)):
 			for key, value in self.controllers.items():
@@ -160,22 +162,23 @@ EN
 									text=value.split('Rev')[0],
 									background_color= [.6, 1.434, 2.151, 1],
 									)
-				btn1.bind(on_press=partial(self.selectController, key))#If controller is selected then pass info to the selectController function
+                #If controller is selected then pass info to the selectController function
+				btn1.bind(on_press=partial(self.selectController, key))
 
-				self.firstScreen.ids['row1'].add_widget(btn1)
-				self.firstScreen.ids['row1'].add_widget(Label(height= 100,
-														size_hint=(.33, .15),
-														text=key))
+                self.firstScreen.ids['controllerBox'].add_widget(BoxLayout(id=key,
+                                                    orientation: 'horizontal',
+                                                    padding: [10,10,10,10],
+                                                    height: 100))
+
+				self.firstScreen.ids[key].add_widget(btn1)
+				self.firstScreen.ids[key].add_widget(Label(text=key))
 				try:
-					self.firstScreen.ids['row1'].add_widget(Label(height= 100,
-														size_hint=(.33, .15),
-														text='Rev'+value.split('Rev')[1]))
+					self.firstScreen.ids[key].add_widget(Label(
+                                            text='Rev'+value.split('Rev')[1]))
 				except:
-					self.firstScreen.ids['row1'].add_widget(Label(height= 100,
-														size_hint=(.33, .15),
-														text='Special'))
+					self.firstScreen.ids[key].add_widget(Label(text='Special'))
 		else:
-			self.firstScreen.ids['row1'].add_widget(Label(height= 100,
+			self.firstScreen.ids['controllerBox'].add_widget(Label(height= 100,
 														size_hint=(.33, .15),
 														text='No Contollers Found',
 														font_size= 14))
@@ -185,7 +188,7 @@ EN
 							background_color= [.6, 1.434, 2.151, 1],
 							)
 			btn2.bind(on_press=partial(self.populateControllers))
-			self.firstScreen.ids['row1'].add_widget(btn2)
+			self.firstScreen.ids['controllerBox'].add_widget(btn2)
 
 
 	#This function is called when the cut-to-length application is started

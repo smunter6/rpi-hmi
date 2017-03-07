@@ -209,7 +209,7 @@ EN
     def startCutToLength(self):
         self.dmc.GProgramDownload("""
 j=10;len=12000
-# cut
+#cut
 WT1000
 i=0
 PTA=0
@@ -217,7 +217,7 @@ SHA
 PA0
 BGA
 AMA
-# loop
+#loop
 'SB1
 WT200
 PAA=len

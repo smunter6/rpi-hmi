@@ -182,7 +182,7 @@ EN
 
                 box1 = BoxLayout(id=key, orientation='horizontal',
                                 padding=[10, 10, 10, 10], height=100)
-                box1.add_widget(btn1(size=self.size))
+                box1.add_widget(btn1)
                 box1.add_widget(Label(text=key))
                 try:
                     box1.add_widget(Label(text='Rev' + value.split('Rev')[1]))

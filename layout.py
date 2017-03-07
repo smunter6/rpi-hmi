@@ -27,15 +27,15 @@ class ShowcaseScreen(Screen):
             return self.ids.content.add_widget(*args)
             return super(ShowcaseScreen, self).add_widget(*args)
 
-            # The ShowcaseApp class is called at startup
-            class ShowcaseApp(App):
-                current_title = StringProperty()
-                current_title = 'Galil Motion Control'  # Set the title for the app
-                time = NumericProperty(0)
-                firstScreen = ObjectProperty()
-                dmc = gclib.py()  # gclib object to communicate with Galil controllers
-                controllerData = ""  # Store data returned by controller
-                controllerConnected = 0
+# The ShowcaseApp class is called at startup
+class ShowcaseApp(App):
+    current_title = StringProperty()
+    current_title = 'Galil Motion Control'  # Set the title for the app
+    time = NumericProperty(0)
+    firstScreen = ObjectProperty()
+    dmc = gclib.py()  # gclib object to communicate with Galil controllers
+    controllerData = ""  # Store data returned by controller
+    controllerConnected = 0
 
     # The build function is automatically called when the class is initialized.
     # This function will setup the UI update frequency and setup

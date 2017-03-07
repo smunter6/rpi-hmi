@@ -66,7 +66,7 @@ class ShowcaseApp(App):
         self.firstScreen.ids.homeSetup.collapse = False
         # Download initial settings
         self.dmc.GProgramDownload("""
-        #start
+        # start
 MO;         'Motor Off
 'MT-2.5;    'Setup axis as stepper motor
 SHA;        'Servo the motor
@@ -98,7 +98,7 @@ EN
         except gclib.GclibError as e:
             print(e)
             tc1 = ""
-            #tc1 = self.dmc.GCommand('TC1')
+            # tc1 = self.dmc.GCommand('TC1')
             print(e, ': ' + cmd)
             # self.dmc.GClose()
             # Update title with error message
@@ -199,8 +199,8 @@ EN
                 # selectController function
                 btn1.bind(on_press=partial(self.selectController, key))
 
-                box1 = BoxLayout(id=key, orientation='horizontal', padding=[
-                                10, 10, 10, 10], height=100))
+                box1 = BoxLayout(id=key, orientation='horizontal',
+                                padding=[10, 10, 10, 10], height=100))
                 box1.add_widget(btn1)
                 box1.add_widget(Label(text=key))
                 try:
@@ -214,11 +214,11 @@ EN
                 size_hint=(.33, .15),
                 text='No Controllers Found',
                 font_size=14))
-            btn2 = Button(height=100,
-                          size_hint=(.33, .15),
-                          text='Refresh',
-                          background_color=[.6, 1.434, 2.151, 1],)
-            btn2.bind(on_press=partial(self.populateControllers))
+            btn2=Button(height = 100,
+                          size_hint = (.33, .15),
+                          text = 'Refresh',
+                          background_color = [.6, 1.434, 2.151, 1],)
+            btn2.bind(on_press = partial(self.populateControllers))
             self.firstScreen.ids['controllerBox'].add_widget(btn2)
 
     # This function is called when the cut-to-length application is started
@@ -228,7 +228,7 @@ EN
     def startCutToLength(self):
         self.dmc.GProgramDownload("""
 j=10;len=12000
-#cut
+# cut
 WT1000
 i=0
 PTA=0
@@ -236,7 +236,7 @@ SHA
 PA0
 BGA
 AMA
-#loop
+# loop
 'SB1
 WT200
 PAA=len
@@ -259,31 +259,31 @@ JP#loop, i<j
         self.dmcCommand("XQ#cut")
         # update the var to tell the HMI which program is running on the
         # controller
-        self.controllerConnected = 2
+        self.controllerConnected=2
         # Update the status text
-        self.firstScreen.ids['currentStatus'].text = "Running..."
+        self.firstScreen.ids['currentStatus'].text="Running..."
 
     # This function is to stop the cut-to-length application
     # TODO: Send the ST command to the controller to stop the application
     def stopCutToLength(self):
         print('stop')
         self.dmcCommand("ST")
-        self.firstScreen.ids['currentStatus'].text = "Stopped"
+        self.firstScreen.ids['currentStatus'].text="Stopped"
 
     def startHomingandSetup(self):
         self.dmcCommand('PTA=1')
-        self.controllerConnected = 1
+        self.controllerConnected=1
 
     # This is a simple function to increment or decrement the number of cuts
     # function is called from the accordian.kv UI file
     def addToCuts(self, count):
-        value = int(self.firstScreen.ids['numCuts'].text) + count
-        self.firstScreen.ids['numCuts'].text = str(value)
+        value=int(self.firstScreen.ids['numCuts'].text) + count
+        self.firstScreen.ids['numCuts'].text=str(value)
 
     # This function is called at 30Hz.
     # It will call the functions to update the selected screen
     def _update_clock(self, dt):
-        self.time = time()
+        self.time=time()
         if(self.firstScreen.ids.homeSetup.collapse == False):
             self.updateHomingScreen()
         if(self.firstScreen.ids.cutToLength.collapse == False):

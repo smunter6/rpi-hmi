@@ -66,7 +66,7 @@ class ShowcaseApp(App):
         self.firstScreen.ids.homeSetup.collapse = False
         # Download initial settings
         self.dmc.GProgramDownload("""
-        # start
+#start
 MO;         'Motor Off
 'MT-2.5;    'Setup axis as stepper motor
 SHA;        'Servo the motor

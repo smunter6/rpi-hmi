@@ -28,6 +28,8 @@ class ShowcaseScreen(Screen):
             return super(ShowcaseScreen, self).add_widget(*args)
 
 # The ShowcaseApp class is called at startup
+
+
 class ShowcaseApp(App):
     current_title = StringProperty()
     current_title = 'Galil Motion Control'  # Set the title for the app
@@ -159,8 +161,8 @@ EN
                 self.controllerConnected = 2
                 self.firstScreen.ids['currentStatus'].text = "Completed."
         except gclib.GclibError as e:
-                print(e)
-                # do nothing
+            print(e)
+            # do nothing
 
     # This function will populate the UI with available controllers on the
     # network
@@ -203,13 +205,13 @@ EN
                                                                                10, 10, 10, 10],
                                                                            height=100))
 
-                self.firstScreen.ids[key].add_widget(btn1)
-                self.firstScreen.ids[key].add_widget(Label(text=key))
+                self.firstScreen.ids.['controllerBox'].ids[key].add_widget(btn1)
+                self.firstScreen.ids.['controllerBox'].ids[key].add_widget(Label(text=key))
                 try:
-                    self.firstScreen.ids[key].add_widget(Label(
+                    self.firstScreen.ids.['controllerBox'].ids[key].add_widget(Label(
                         text='Rev' + value.split('Rev')[1]))
                 except:
-                    self.firstScreen.ids[key].add_widget(
+                    self.firstScreen.ids.['controllerBox'].ids[key].add_widget(
                         Label(text='Special'))
                 else:
                     self.firstScreen.ids['controllerBox'].add_widget(Label(

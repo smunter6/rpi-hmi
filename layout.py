@@ -168,31 +168,13 @@ EN
     # network
     def populateControllers(self, *args):
 
-        #		self.firstScreen.ids['row1'].clear_widgets()
-        #		self.firstScreen.ids['row1'].add_widget(Label(height= 100,
-        #														size_hint=(.33, .15),
-        #														text='[b]Click to Select Controller[/b]',
-        #														markup= True,
-        #														font_size= 14))
-        #		self.firstScreen.ids['row1'].add_widget(Label(height= 100,
-        #														size_hint=(.33, .15),
-        #														text='[b]Address[/b]',
-        #														markup= True,
-        #														font_size= 14))
-        #		self.firstScreen.ids['row1'].add_widget(Label(height= 100,
-        #														size_hint=(.33, .15),
-        #														text='[b]Revision[/b]',
-        #														markup= True,
-        # font_size=
-        # 14))
-
         # the gclib API call will return all controllers with IP addresses
         self.controllers = self.dmc.GAddresses()
         if(len(self.controllers)):
             for key, value in self.controllers.items():
                 print(" ", key, " \t| ", value)
                 btn1 = Button(height=100,
-                              size_hint=(.33, .15),
+                              size=self.size,
                               text=value.split('Rev')[0],
                               background_color=[.6, 1.434, 2.151, 1],)
                 # If controller is selected then pass info to the

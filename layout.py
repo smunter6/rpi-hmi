@@ -199,32 +199,27 @@ EN
                 # selectController function
                 btn1.bind(on_press=partial(self.selectController, key))
 
-                self.firstScreen.ids['controllerBox'].add_widget(BoxLayout(id=key,
-                                                                           orientation='horizontal',
-                                                                           padding=[
-                                                                               10, 10, 10, 10],
-                                                                           height=100))
-
-                self.firstScreen.ids.['controllerBox'].ids[key].add_widget(btn1)
-                self.firstScreen.ids.['controllerBox'].ids[key].add_widget(Label(text=key))
+                box1 = BoxLayout(id=key, orientation='horizontal', padding=[
+                                10, 10, 10, 10], height=100))
+                box1.add_widget(btn1)
+                box1.add_widget(Label(text=key))
                 try:
-                    self.firstScreen.ids.['controllerBox'].ids[key].add_widget(Label(
-                        text='Rev' + value.split('Rev')[1]))
+                    box1.add_widget(Label(text='Rev' + value.split('Rev')[1]))
                 except:
-                    self.firstScreen.ids.['controllerBox'].ids[key].add_widget(
-                        Label(text='Special'))
-                else:
-                    self.firstScreen.ids['controllerBox'].add_widget(Label(
-                        height=100,
-                        size_hint=(.33, .15),
-                        text='No Contollers Found',
-                        font_size=14))
-                    btn2 = Button(height=100,
-                                  size_hint=(.33, .15),
-                                  text='Refresh',
-                                  background_color=[.6, 1.434, 2.151, 1],)
-                    btn2.bind(on_press=partial(self.populateControllers))
-                    self.firstScreen.ids['controllerBox'].add_widget(btn2)
+                    box1.add_widget(Label(text='Special'))
+                self.firstScreen.ids['controllerBox'].add_widget(box1)
+        else:
+            self.firstScreen.ids['controllerBox'].add_widget(Label(
+                height=100,
+                size_hint=(.33, .15),
+                text='No Controllers Found',
+                font_size=14))
+            btn2 = Button(height=100,
+                          size_hint=(.33, .15),
+                          text='Refresh',
+                          background_color=[.6, 1.434, 2.151, 1],)
+            btn2.bind(on_press=partial(self.populateControllers))
+            self.firstScreen.ids['controllerBox'].add_widget(btn2)
 
     # This function is called when the cut-to-length application is started
     # It will download a simple proof of concept cut-to-length application code

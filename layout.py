@@ -25,7 +25,7 @@ class ShowcaseScreen(Screen):
     def add_widget(self, *args):
         if 'content' in self.ids:
             return self.ids.content.add_widget(*args)
-            return super(ShowcaseScreen, self).add_widget(*args)
+        return super(ShowcaseScreen, self).add_widget(*args)
 
 # The ShowcaseApp class is called at startup
 

@@ -140,7 +140,7 @@ EN
             else:
                 self.firstScreen.ids['_MOA'].active = False
         except:
-            #print(e)
+            print('an error occured!')
             # do nothing
 
     # This function will update the Cut-to-length screen UI elements.
@@ -161,7 +161,7 @@ EN
                 self.controllerConnected = 2
                 self.firstScreen.ids['currentStatus'].text = "Completed."
         except:
-            #print(e)
+            print('another error occured!')
             # do nothing
 
     # This function will populate the UI with available controllers on the

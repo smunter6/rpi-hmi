@@ -139,8 +139,8 @@ EN
                 self.firstScreen.ids['_MOA'].active = True
             else:
                 self.firstScreen.ids['_MOA'].active = False
-        except gclib.GclibError as e:
-            print(e)
+        except:
+            #print(e)
             # do nothing
 
     # This function will update the Cut-to-length screen UI elements.
@@ -160,8 +160,8 @@ EN
             if(int(data.split()[1]) >= int(self.firstScreen.ids['numCuts'].text)):
                 self.controllerConnected = 2
                 self.firstScreen.ids['currentStatus'].text = "Completed."
-        except gclib.GclibError as e:
-            print(e)
+        except:
+            #print(e)
             # do nothing
 
     # This function will populate the UI with available controllers on the
@@ -245,7 +245,6 @@ JP#loop, i<j
         self.firstScreen.ids['currentStatus'].text="Running..."
 
     # This function is to stop the cut-to-length application
-    # TODO: Send the ST command to the controller to stop the application
     def stopCutToLength(self):
         print('stop')
         self.dmcCommand("ST")

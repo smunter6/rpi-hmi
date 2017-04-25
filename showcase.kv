@@ -55,11 +55,13 @@ BoxLayout:
             ActionSeparator:
             ActionButton:
                 text: 'Disconnect'#TODO: Implement Disconnect
+                on_press: app.disconnect()
             ActionSeparator:
             ActionButton:
                 text: '  E-STOP  '#TODO: Implement ESTOP
                 background_normal: ''
                 background_color: [.72, .14, .14, 1]
+                on_press: app.estop()
             ActionSeparator:
     ScreenManager:
         id: sm

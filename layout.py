@@ -103,6 +103,7 @@ EN
             # self.dmc.GClose()
             # Update title with error message
             self.root.ids.avTitle.title = str(e)
+            self.root.ids['logTextBox'].insert_text(e)
             # self.root.ids.sm.switch_to(self.firstScreen)
             raise  # allow the caller to handle the exception
 
@@ -167,7 +168,7 @@ EN
     # This function will populate the UI with available controllers on the
     # network
     def populateControllers(self, *args):
-
+        self.firstScreen.ids['controllerBox'].clear_widgets()
         # the gclib API call will return all controllers with IP addresses
         self.controllers = self.dmc.GAddresses()
         if(len(self.controllers)):
@@ -195,12 +196,12 @@ EN
                 size_hint=(.33, .15),
                 text='No Controllers Found',
                 font_size=14))
-            btn2=Button(height = 100,
-                          size_hint = (.33, .15),
-                          text = 'Refresh',
-                          background_color = [.6, 1.434, 2.151, 1],)
-            btn2.bind(on_press = partial(self.populateControllers))
-            self.firstScreen.ids['controllerBox'].add_widget(btn2)
+            #btn2=Button(height = 100,
+            #              size_hint = (.33, .15),
+            #              text = 'Refresh',
+            #              background_color = [.6, 1.434, 2.151, 1],)
+            #btn2.bind(on_press = partial(self.populateControllers))
+            #self.firstScreen.ids['controllerBox'].add_widget(btn2)
 
     # This function is called when the cut-to-length application is started
     # It will download a simple proof of concept cut-to-length application code
@@ -268,6 +269,14 @@ JP#loop, i<j
             self.updateHomingScreen()
         if(self.firstScreen.ids.cutToLength.collapse == False):
             self.updateCutScreen()
+
+    def disconnect(self):
+        self.dmc.GClose()
+        self.firstScreen.ids.aci1.collapse = False
+
+    def estop(self):
+        self.dmcCommand("ST")
+        self.dmcCommand("MO")
 
 
 if __name__ == '__main__':

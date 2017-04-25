@@ -103,7 +103,7 @@ EN
             # self.dmc.GClose()
             # Update title with error message
             self.root.ids.avTitle.title = str(e)
-            self.root.ids['logTextBox'].insert_text(e)
+            self.firstScreen.ids['logTextBox'].insert_text(e)
             # self.root.ids.sm.switch_to(self.firstScreen)
             raise  # allow the caller to handle the exception
 

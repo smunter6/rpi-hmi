@@ -85,8 +85,11 @@ EN
     # be chosen before the previous one finishes.
     def sliderMove(self):
         if(self.controllerConnected == 1):
-            self.dmcCommand(
-                "PAA=" + str(int(self.firstScreen.ids['slider_PAA'].value)))
+            try:
+                self.dmcCommand(
+                    "PAA=" + str(int(self.firstScreen.ids['slider_PAA'].value)))
+            except GclibError as # coding=utf-8
+                print('slider move error')
 
     # This function will perform error trapping on any GCommand calls.
     # It is intended to capture any gclib errors
